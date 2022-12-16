@@ -615,11 +615,25 @@ lazySizesConfig.expFactor = 4;
       },
   
       _updateHistoryState: function(variant) {
+
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const oidParam = urlParams.get('oid')
+        const affidParam = urlParams.get('affid')
+
         if (!history.replaceState || !variant) {
           return;
         }
   
         var newurl = window.location.protocol + '//' + window.location.host + window.location.pathname + '?variant=' + variant.id;
+
+        if (oidParam) {
+            newurl += '&oid=' + oidParam;
+        }
+        if (affidParam) {
+            newurl += '&affid=' + affidParam;
+        }
+
         window.history.replaceState({path: newurl}, '', newurl);
       },
   
