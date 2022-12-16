@@ -1,0 +1,119 @@
+{{ "section-accordion.css" | asset_url | stylesheet_tag }}
+
+<section class="section-accordion-w-blocks section-{{ section.id }}">
+    <div class="page-width">
+
+        <div class="accordion-container">
+            {% if section.settings.accordion_header or section.settings.accordion_subheader %}
+                <div class="accordion-header-container" style="text-align: {{ section.settings.text_alignment }};">
+                    {% if section.settings.accordion_header %}
+                        <h2 class="accordion-header">{{ section.settings.accordion_header }}</h2>
+                    {% endif %}
+                    {% if section.settings.accordion_header %}
+                        <h3 class="accordion-subheader">{{ section.settings.accordion_subheader }}</h3>
+                    {% endif %}
+                </div>
+            {% endif %}
+            {% for block in section.blocks %}
+                    <div class="accordion-item">
+                        <div class="accordion-content-wrapper">
+                            <div class="accordion-top">
+                                <p class="accordion-title">{{block.settings.section_title}}</p>
+                                <div class="accordion-icon">
+                                    <p class="plus active">{% render 'icon-plus' %}</p>
+                                    <p class="minus">{% render 'icon-minus' %}</p>
+                                </div>
+                            </div>
+                            <div class="accordion-bottom">
+                                {{block.settings.section_content}}
+                            </div>
+                        </div>
+                    </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<script>
+    const accordionTitleArr = document.querySelectorAll(".accordion-content-wrapper");
+    accordionTitleArr.forEach((el)=>{
+        el.addEventListener("click",(e)=>{
+            let accordionContent = el.querySelector(".accordion-bottom");
+            let plusBtn = el.querySelector(".plus");
+            let minusBtn = el.querySelector(".minus");
+            console.log(accordionContent);
+            plusBtn.classList.toggle("active");
+            minusBtn.classList.toggle("active");
+            accordionContent.classList.toggle("active");
+        })
+    })
+</script>
+
+ {% schema %}
+  {
+      "name":"Accordion W/ Blocks",
+      "class": "accordion_w_blocks",
+      "settings":[
+          {
+              "type": "text",
+              "id": "accordion_header",
+              "label": "Accordion Header",
+              "default": "Accordion Header Text"
+          },
+          {
+              "type": "text",
+              "id": "accordion_subheader",
+              "label": "Accordion Subheader",
+              "default": "Accordion Subheader"
+          },
+          {
+              "type": "select",
+              "id": "text_alignment",
+              "label": "Text Alignment",
+              "options": [
+                  {
+                  "value": "start",
+                  "label": "Left"
+                  },
+                  {
+                  "value": "center",
+                  "label": "Center"
+                  },
+                  {
+                  "value": "end",
+                  "label": "Right"
+                  }
+              ],
+              "default": "center"
+          }
+      ],
+      "blocks": [
+        {
+            "type": "accordion-item",
+            "name": "Accordion Item",
+            "settings": [
+              {
+                "type": "header",
+                "content": "Accordion Section"
+              },
+              {
+                "type": "text",
+                "id": "section_title",
+                "label": "Section Title"
+              },
+              {
+                "type": "textarea",
+                "id": "section_content",
+                "label": "Section Content"
+              }
+            ]
+          }
+      ],
+      "presets": [
+        {
+            "name": "Accordion W/ Blocks",
+            "category": "Accordion"
+        }
+      ]
+  }
+  {% endschema %}

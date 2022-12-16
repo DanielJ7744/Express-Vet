@@ -1,0 +1,47 @@
+<section class="section-image-with-button section-{{section.id}}">
+    {% if section.settings.section_image %}
+        <img src="{{ section.settings.section_image |img_url: '1920x1080'}}" alt="{{ section.settings.section_image.alt }}">
+    {% endif %}
+    {% if section.settings.button_text %}
+        <div class="button-wrapper">
+            <a href="{{ section.settings.button_link }}" class=" btn image-with-button-link" style="background-color: {{ section.settings.button_color }}">{{ section.settings.button_text}}</a>
+        </div>
+    {% endif %}
+</section>
+ 
+ {% schema %}
+  {
+      "name":"Image with Button",
+      "class": "image_with_button", 
+      "settings":[
+              {
+                  "type": "image_picker",
+                  "id": "section_image",
+                  "label": "Section Image"
+              },
+              {
+                  "type": "text",
+                  "id": "button_text",
+                  "label": "Button Text",
+                  "default": "Transfer Now"
+              },
+              {
+                  "type": "url",
+                  "id": "button_link",
+                  "label": "Button Link"
+              },
+              {
+                  "type": "color",
+                  "id": "button_color",
+                  "label": "Button Color",
+                  "default": "#ffffff"
+              }
+      ],
+      "presets": [
+        {
+            "name": "Image with Button",
+            "category": "Image"
+        }
+      ]
+  }
+  {% endschema %}

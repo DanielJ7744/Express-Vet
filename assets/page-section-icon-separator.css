@@ -1,0 +1,29 @@
+
+.page-section-icon-separator .separator-line{
+    min-height: 5px;
+    margin: 50px 0;
+    width: 100%;
+    border-bottom: 2px dotted var(--main-color);
+    position:relative;
+}
+.page-section-icon-separator .separator-line::after{
+    content: "";
+    background-image: var(--icon_url);
+    color: #999;
+    display: block;
+    background-color: #fff;
+    border-right: 30px solid #fff;
+    border-left: 30px solid #fff;
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
+    position: absolute;
+    top: 0%;
+    box-sizing: content-box;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 10;
+    background-size: contain;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

@@ -1,0 +1,100 @@
+{
+  "sections": {
+    "main": {
+      "type": "rx-transfer-section",
+      "settings": {
+        "header_image": "shopify:\/\/shop_images\/Express_Vet_Banners_55af3e3a-e1a8-4adc-80cf-e9037973080a.png"
+      }
+    },
+    "16397706121b6622f3": {
+      "type": "featured-content",
+      "disabled": true,
+      "settings": {
+        "title": "Transfer Your RX to ExpressVet!",
+        "text": "",
+        "align_text": "center",
+        "narrow_column": true,
+        "enlarge_text": true,
+        "divider": false
+      }
+    },
+    "163970231134e3c12d": {
+      "type": "steps-section",
+      "blocks": {
+        "5f12064b-4328-44e7-b68a-907127918a77": {
+          "type": "Step",
+          "settings": {
+            "arrow_text": "Step 1",
+            "arrow-text-color": "#ffffff",
+            "accent_color": "#52c8ee",
+            "block_icon": "shopify:\/\/shop_images\/searching_ecdd490a-a3a9-4e40-9a7b-32cf763710a7.png",
+            "block_header_text": "Search",
+            "block_body_text": "Use Our Search Bar Above To Find Your Product and Checkout"
+          }
+        },
+        "4f4dcd91-e2f9-40d2-a43e-84d76cd5572e": {
+          "type": "Step",
+          "settings": {
+            "arrow_text": "Step 2",
+            "arrow-text-color": "#ffffff",
+            "accent_color": "#2abaea",
+            "block_icon": "shopify:\/\/shop_images\/shopping-cart.png",
+            "block_header_text": "Checkout",
+            "block_body_text": "During Checkout Choose Add Vet\/Pharmacy and input the pharmacy information"
+          }
+        },
+        "d8301a48-517f-4f94-b817-634344008620": {
+          "type": "Step",
+          "settings": {
+            "arrow_text": "Step 3",
+            "arrow-text-color": "#ffffff",
+            "accent_color": "#15a2d1",
+            "block_icon": "shopify:\/\/shop_images\/complete.png",
+            "block_header_text": "Complete",
+            "block_body_text": "Complete your purchase"
+          }
+        },
+        "eb21a560-245e-4de7-96f2-ef6d0b73c582": {
+          "type": "Step",
+          "settings": {
+            "arrow_text": "Step 4",
+            "arrow-text-color": "#ffffff",
+            "accent_color": "#1181a7",
+            "block_icon": "shopify:\/\/shop_images\/transfer.png",
+            "block_header_text": "Confirm",
+            "block_body_text": "Our team will confirm the transfer and get all needed information from your old pharmacy. Upon completion if you have ordered an ExpressVet Compounded Medication we will apply a 35% discount to your order."
+          }
+        }
+      },
+      "block_order": [
+        "5f12064b-4328-44e7-b68a-907127918a77",
+        "4f4dcd91-e2f9-40d2-a43e-84d76cd5572e",
+        "d8301a48-517f-4f94-b817-634344008620",
+        "eb21a560-245e-4de7-96f2-ef6d0b73c582"
+      ],
+      "settings": {
+        "header": "Follow 4 Easy Steps",
+        "header_alignment": "center",
+        "header_color": "#00bef4",
+        "show_divider": true
+      }
+    },
+    "1639770465c727355e": {
+      "type": "featured-content",
+      "settings": {
+        "title": "Have Questions?",
+        "text": "<p>Call us today! <\/p><p><a href=\"tel:833-206-2945\">833-206-2945<\/a>!<br\/>      <\/p>",
+        "align_text": "center",
+        "narrow_column": true,
+        "enlarge_text": true,
+        "divider": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "16397706121b6622f3",
+    "163970231134e3c12d",
+    "1639770465c727355e"
+  ]
+}

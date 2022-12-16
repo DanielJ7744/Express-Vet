@@ -1,0 +1,51 @@
+.easytabs-contents h2 {
+    margin-top: 25px !important;
+    margin-bottom: 10px;
+}
+.easytabs-contents h3{
+    margin-top: 20px !important;
+    margin-bottom: 0px;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.easytabs-contents h4{
+    margin-top: 20px !important;
+    margin-bottom: 0px;
+    font-size: 1rem;
+}
+.faq-item-wrapper .numbered-list{
+    list-style: inside decimal;
+}
+.description-tab-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+.description-tab-wrapper .descriptions__content.product-tabs__content--left {
+    width: 70%;
+}
+.descriptions__content.product-tabs__content--right .attributes {
+    list-style: none;
+    min-width: 250px;
+    margin: 20px 0 0 0;
+}
+.descriptions__content.product-tabs__content--right .attributes li{
+   border-top: 1px solid black;
+   display: flex;
+   justify-content: space-between;
+}
+.descriptions__content.product-tabs__content--right .attributes li .title{
+   width: 50%;
+   text-transform: uppercase;
+}
+.descriptions__content.product-tabs__content--right .attributes li .value{
+    width:50%;
+   font-weight: 900;
+}
+.descriptions__content.product-tabs__content--left{
+    flex: 4 1 800px;
+}
+.descriptions__content.product-tabs__content--right{
+    flex: 1 1 200px;
+}

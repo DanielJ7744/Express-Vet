@@ -1,0 +1,138 @@
+{{ "steps-section.css" | asset_url | stylesheet_tag }}
+
+<section class="page-width">
+    {% if section.settings.header != blank %}
+        <h1 class="steps-section-header" style="--header-alignment: {{section.settings.header_alignment }}; --header-text-color: {{ section.settings.header_color }}">
+            {{ section.settings.header }}
+        </h1>
+    {% endif %}
+    {% if section.settings.show_divider %}
+        <div class="tabs-section-divider"></div>
+    {% endif %}
+    {% if section.blocks.size > 0 %}
+        <div class="step-blocks-container">
+            {% for block in section.blocks %}
+                <div class="step-block">
+                    <div class="block-top">
+                        {% assign accentColor = block.settings.accent_color %}
+                        {% render 'icons-steps-arrow' accentColor: accentColor %}
+                        {% if block.settings.block_header_text != blank %}
+                            <h2 class="block-header" style="color: {{ block.settings.arrow-text-color }}">{{ block.settings.arrow_text }}</h2>
+                        {% endif %}
+                    </div>
+                    <div class="block-bottom">
+                        <img src="{{ block.settings.block_icon |img_url: '100x' }}" alt="{{ block.settings.block_icon.alt }}">
+                        <div class="block-bottom-text-container">
+                          <h3>{{ block.settings.block_header_text }}</h3>
+                          <p>{{ block.settings.block_body_text }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+</section>
+ {% schema %}
+{
+  "name": "Steps Section",
+  "class": "steps-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "header",
+      "label": "Section Header",
+      "placeholder": "Your Header"
+    },
+    {
+        "type": "select",
+        "id": "header_alignment",
+        "label": "Header Alignment",
+        "options": [
+            {
+            "group": "Alignment",
+            "value": "left",
+            "label": "Left"
+            },
+            {
+            "group": "Alignment",
+            "value": "center",
+            "label": "center"
+            },
+            {
+            "group": "Alignment",
+            "value": "right",
+            "label": "Right"
+            }
+        ],
+        "default": "center"
+    },
+    {
+        "type": "color",
+        "id": "header_color",
+        "label": "Header Color",
+        "default": "#000000"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "Show Divider",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "Step",
+      "name": "Step Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "arrow_text",
+          "label": "Arrow Text",
+          "default": "Step 01",
+          "placeholder": "Text"
+        },
+        {
+          "type": "color",
+          "id": "arrow-text-color",
+          "label": "Accent Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "accent_color",
+          "label": "Accent Color",
+          "default": "#345384"
+        },
+        {
+          "type": "image_picker",
+          "id": "block_icon",
+          "label": "Block Icon"
+        },
+        {
+          "type": "text",
+          "id": "block_header_text",
+          "label": "Block Header Text",
+          "default": "Block Header",
+          "placeholder": "Header Text"
+        },
+        {
+          "type": "text",
+          "id": "block_body_text",
+          "label": "Block Body Text",
+          "default": "lorem20",
+          "placeholder": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam nam hic, quis cupiditate facilis distinctio eos autem eius! Porro, similique."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Steps Section",
+      "category": "info"
+    }
+  ]
+}
+{% endschema %}
+  
+  

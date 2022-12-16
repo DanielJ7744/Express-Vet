@@ -1,0 +1,68 @@
+<div class="variant-wrapper variant-wrapper--{{ settings.variant_type }} js">
+  <label class="variant__label{% if option.name == 'Default' or option.name == 'Title' %} hidden-label{% endif %}{% unless settings.variant_labels_enable %} hidden-label{% endunless %}"
+    for="SingleOptionSelector-{{ section_id }}-option-{{ forloop.index0 }}">
+    {{ option.name }}
+  </label>
+  {% assign option_values = '' %}
+  <div class="variant-input-wrap" data-index="option{{ forloop.index }}">
+    <select
+      class="variant__input-{{ section_id }}"
+      id="SingleOptionSelector-{{ section_id }}-option-{{ forloop.index0 }}"
+      data-index="option{{ forloop.index }}">
+      {% for value in option.values %}
+        {%- assign variant_label_state = true -%}
+        {% if product.options.size == 1 %}
+          {% unless product.variants[forloop.index0].available %}
+            {%- assign variant_label_state = false -%}
+          {% endunless %}
+        {% endif %}
+        <option
+          value="{{ value | escape }}"
+          {% if option.selected_value == value %} selected="selected"{% endif %}
+          {% unless variant_label_state %} disabled="disabled"{% endunless %}
+          name="{{ option.name }}"
+          class="variant-input"
+          data-index="option{{ forloop.index }}">
+          {{ value }}
+        </option>
+      	{% capture option_values %}{{ option_values }}{% unless option_values == '' %},{% endunless %}{{ value }}{% endcapture %}
+      {% endfor %}
+      {% if more_variant_product != blank %}
+      
+      {% assign more_option = blank %}
+      
+      {% for more_options in more_variant_product.options_with_values %}
+      	{% if more_options.name == option.name %}
+      	  {% assign more_option = more_options %}
+      	{% endif %}
+      {% endfor %}
+      
+      {% assign option_values = option_values | split: ',' %}
+      {% for value in more_option.values %}
+      	{% assign _exist = 0 %}
+      	{% for option_value in option_values %}
+      	  {% if option_value == value %}
+      		{% assign _exist = 1 %}
+          {% endif %}
+      	{% endfor %}
+      	{% if _exist == 0 %}
+          {%- assign variant_label_state = true -%}
+          {% if product.options.size == 1 %}
+            {% unless product.variants[forloop.index0].available %}
+              {%- assign variant_label_state = false -%}
+            {% endunless %}
+          {% endif %}
+          <option
+            value="{{ value | escape }}"
+            {% unless variant_label_state %} disabled="disabled"{% endunless %}
+            name="{{ more_option.name }}"
+            class="variant-input"
+            data-index="option{{ forloop.index }}">
+            {{ value }}
+          </option>
+      	{% endif %}
+      {% endfor %}
+      {% endif %}
+    </select>
+  </div>
+</div>

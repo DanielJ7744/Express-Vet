@@ -1,0 +1,168 @@
+<div
+  id="three-columns-{{ section.id }}" 
+  class="three-columns-template"
+  data-section-id="{{ section.id }}"
+  data-section-type="three-columns-template">
+  <div class="page-width">
+    <div class="grid grid-columns">
+      {% for block in section.blocks %}
+      	{% capture item %}
+      	<div class="column-content-item block--{{ forloop.index }} block-{{ block.id }}">
+          <div class="column-content">
+            <div class="column-content-wrapper">
+              {% if block.settings.title != blank %}
+              <h4 class="h4">{{ block.settings.title }}</h4>
+              {% endif %}
+              {% if block.settings.text != blank %}
+              <p>{{ block.settings.text }}</p>
+              {% endif %}
+              {% if block.settings.url != blank and block.settings.button_text != blank %}
+              <a href="{{ block.settings.url }}" class="btn">{{ block.settings.button_text }}</a>
+              {% endif %}
+              {% if block.settings.transition_text != blank%}
+                <h3 class="transition-text">{{ block.settings.transition_text }}</h3>
+              {% endif %}
+              {% if block.settings.title2  != blank%}
+                <h4 class="h4">{{ block.settings.title2 }}</h4>
+              {% endif %}
+              {% if block.settings.url2 != blank%}
+                <a href="{{ block.settings.url2 }}" class="btn">{{ block.settings.button_text2 }}</a>
+              {% endif %}
+            </div>
+          </div>
+          {% if block.settings.image != blank %}
+          <div class="column-img">
+            <div class="column-img-wrapper">
+              {%- assign img_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+              <img class="feature-row__image lazyload"
+                   data-src="{{ img_url }}"
+                   data-widths="[180, 360, 540, 720, 900, 1080]"
+                   data-aspectratio="{{ block.settings.image.aspect_ratio }}"
+                   data-sizes="auto"
+                   alt="{{ block.settings.image.alt }}" />
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        {% endcapture %}
+      	{% if forloop.index == 1 %}<div class="grid__item">{{ item }}</div>{% else %}{% capture item_right %}{{ item_right }}{{ item }}{% endcapture %}{% endif %}
+      {% endfor %}
+      <div class="grid__item">
+        {{ item_right }}
+      </div>
+    </div>
+    <div class="grid">
+      <div class="divi-img">
+        <span class="bt-img">
+          {% if section.settings.divi_image != blank %}
+          <div style="height: 0; padding-bottom: 150px;">
+            {%- assign img_url = section.settings.divi_image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+            <img class="lazyload"
+                 data-src="{{ img_url }}"
+                 data-widths="[180, 360]"
+                 data-aspectratio="{{ section.settings.divi_image.aspect_ratio }}"
+                 data-sizes="auto"
+                 alt="{{ section.settings.divi_image.alt }}">
+          </div>
+          {% endif %}
+        </span>
+      </div>
+    </div>
+  </div>
+  <style>
+    {% if section.settings.bg_color != blank %}
+    #three-columns-{{ section.id }} .column-content-item {
+      background-color: {{ section.settings.bg_color }};
+    }
+    {% endif %}
+  </style>
+</div>
+{% schema %}
+  {
+    "name": "3 columns",
+	"max_blocks": 3,
+    "settings": [
+	  {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background color"
+      },
+	  {
+        "type": "checkbox",
+        "id": "divider",
+        "label": "Show image divider",
+        "default": false
+      },
+	  {
+        "type": "image_picker",
+        "id": "divi_image",
+        "label": "Divider Image"
+      }
+	],
+    "blocks": [
+      {
+        "type": "Column",
+        "name": "Column",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading"
+          },
+          {
+            "type": "html",
+            "id": "text",
+            "label": "Text"
+          },
+          {
+            "type": "url",
+            "id": "url",
+            "label": "Url"
+          },
+          {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button text"
+          },
+          {
+            "type": "text",
+            "id": "transition_text",
+            "label": "Transition text"
+          },
+          {
+            "type": "text",
+            "id": "title2",
+            "label": "Heading"
+          },
+          {
+            "type": "url",
+            "id": "url2",
+            "label": "Url"
+          },
+          {
+            "type": "text",
+            "id": "button_text2",
+            "label": "Button text"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "3 columns",
+        "category": "Image"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,106 @@
+{%- capture pet_fields -%}
+name:Name:text:required,
+breed_type:Breed Type:select|Mixed Breed|PureBreed|Unknown Breed:required,
+breed:Breed:text:required,
+weight:Weight:text:required,
+gender:Gender:select|Male|Female:required,
+celebration_day:Celebration Day:select|Birthday|Adoption Day:required,
+birthday:Birthday:text:required,
+current_medications:Current Medications:text:,
+allergies:Allergies:text:,
+health_conditions:Health Conditions:text:
+{%- endcapture -%}
+
+{%- capture pet_fields -%}
+name:Pet's Name:text:required,
+owner_name:Pet Owner’s First and Last Name:text:required,
+weight:Weight:text:required,
+species:Species:text:required,
+birthday:Birthday/age:text:required
+{%- endcapture -%}
+{%- capture vet_fields -%}
+name:Vet/Pharmacy Name:text:required,
+veterinarian:Veterinarian:text:norequired,
+address:Address:text:required,
+phone:Phone:phone:required,
+fax:Fax:text:required,
+email:Email:email:norequired
+{%- endcapture -%}
+{%- assign pet_fields = pet_fields | strip_newlines | split: ',' -%}
+{%- assign vet_fields = vet_fields | strip_newlines | split: ',' -%}
+<div id="pvt-add-pet-container" class="pvt-container hide" data-pvt-add-pet-container>
+  <div class="pvt-container-wrap">
+    <div class="pvt-close" data-pvt__close>x</div>
+    <div class="pvt-header">
+      <h2>Add a Pet</h2>
+    </div>
+    <div class="pvt-body">
+      <form id="pets-form" class="pvt-form" data-pvt-type="pets">
+          {% for pet_field in pet_fields %}
+          {% assign _pet_field = pet_field | split: ':' %}
+          <div class="pvt-row">
+            <label for="name">{{ _pet_field[1] }}{% if _pet_field[3] == 'required' %}<abbr class="required">*</abbr>{% endif %}</label>
+            <div class="input-full" data-for="{{ _pet_field[0] }}">
+              {%- assign input = _pet_field[2] | split: '|' -%}
+              {%- if input[0] == 'select' -%}
+              <select class="input-full pvt-info" name="pets_{{ _pet_field[0] }}" {{ _pet_field[3] }} >
+                {%- for option in input -%}
+                {%- unless forloop.first -%}
+                <option value="{{ option }}">{{ option }}</option>
+                {%- endunless -%}
+                {%- endfor -%}
+              </select>
+              {%- else -%}
+              <input type="{{ input[0] }}" class="input-full pvt-info" name="pets_{{ _pet_field[0] }}" {{ _pet_field[3] }} />
+              {%- endif -%}
+            </div>
+          </div>
+          {% endfor %}
+          <div class="pvt-row">
+            <button class="btn btn--full pvt-save-btn" data-pvt__save>Save</button>
+          </div>
+          <div class="pvt-row">
+            <span class="btn btn--full pvt-delete-btn" data-pvt__close>Cancel</span>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>
+<div id="pvt-add-vet-container" class="pvt-container hide" data-pvt-add-vet-container>
+  <div class="pvt-container-wrap">
+    <div class="pvt-close" data-pvt__close>x</div>
+    <div class="pvt-header">
+      <h2>Add a Vet/Pharmacy</h2>
+    </div>
+    <div class="pvt-body">
+      <form id="vets-form" class="pvt-form" data-pvt-type="vets">
+          {% for vet_field in vet_fields %}
+          {% assign _vet_field = vet_field | split: ':' %}
+          <div class="pvt-row">
+            <label for="name">{{ _vet_field[1] }}{% if _vet_field[3] == 'required' %}<abbr class="required">*</abbr>{% endif %}</label>
+            <div class="input-full" data-for="{{ _vet_field[0] }}">
+              {%- assign input = _vet_field[2] | split: '|' -%}
+              {%- if input[0] == 'select' -%}
+              <select class="input-full pvt-info" name="vets_{{ _vet_field[0] }}" {{ _vet_field[3] }} >
+                {%- for option in input -%}
+                {%- unless forloop.first -%}
+                <option value="{{ option }}">{{ option }}</option>
+                {%- endunless -%}
+                {%- endfor -%}
+              </select>
+              {%- else -%}
+              <input type="{{ input[0]}}" class="input-full pvt-info" name="vets_{{ _vet_field[0] }}" {{ _vet_field[3] }} />
+              {%- endif -%}
+            </div>
+          </div>
+          {% endfor %}
+          <div class="pvt-row">
+            <button class="btn btn--full pvt-save-btn" data-pvt__save>Save</button>
+          </div>
+          <div class="pvt-row">
+            <span class="btn btn--full pvt-delete-btn" data-pvt__close>Cancel</span>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>

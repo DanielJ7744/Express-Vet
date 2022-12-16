@@ -1,0 +1,126 @@
+{% style %}
+.logo-bar--{{ section.id }} {
+  opacity: {{ section.settings.logo_opacity | divided_by: 100.0 }};
+}
+{% endstyle %}
+
+{% if section.settings.divider %}<div class="section--divider">{% endif %}
+<div class="logo-wrapper" {%- if section.settings.bg_image != blank -%} style="background-image: url('{{ section.settings.bg_image | img_url: 'master'}}')" {% endif %}>
+<div class="page-width" data-aos="logo__animation">
+  {% if section.settings.title != blank %}
+    <div class="section-header ">
+      <h1 class="section-header__title text-center">{{ section.settings.title | escape }}</h1>
+    </div>
+  {% endif %}
+
+  {% if section.blocks.size > 0 %}
+    <div class="logo-bar row logo-bar--{{ section.id }}">
+      <div id="brand-logo-carousel" class="owl-carousel owl-theme">
+      {% for block in section.blocks %}
+        <div class="logo-bar__item col" {{ block.shopify_attributes }}>
+          {% if block.settings.link != blank %}
+            <a href="{{ block.settings.link }}" class="logo-bar__link">
+          {% endif %}
+          {% if block.settings.image != blank %}
+            {%- assign img_url = block.settings.image | img_url: '150x' -%}
+            <img class="logo-bar__image lazyload"
+                data-src="{{ img_url }}"
+                data-widths="[180, 360, 540, 720]"
+                data-aspectratio="{{ block.settings.image.aspect_ratio }}"
+                data-sizes="auto"
+                 src="{{ img_url }}"
+                alt="{{ block.settings.image.alt }}">
+          {% else %}
+            {{ 'logo' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+          {% if block.settings.link != blank %}
+            </a>
+          {% endif %}
+        </div>
+      {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</div>
+</div>
+{% if section.settings.divider %}</div>{% endif %}
+<style>
+  .logo-wrapper {background: {{ section.settings.bg_color }}; padding: 20px;
+  }
+</style>
+{% schema %}
+  {
+    "name": "Brand Logo list",
+    "class": "index-section",
+    "max_blocks": 10,
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading"
+      },
+		{
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Image"
+     },
+	  {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color"
+      },
+      {
+        "type": "range",
+        "id": "logo_opacity",
+        "label": "Logo opacity",
+        "default": 76,
+        "min": 0,
+        "max": 100,
+        "step": 2,
+        "unit": "%"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "logo_image",
+        "name": "Logo",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link",
+            "info": "Optional"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Brand Logo list",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "logo_image"
+          },
+          {
+            "type": "logo_image"
+          },
+          {
+            "type": "logo_image"
+          },
+          {
+            "type": "logo_image"
+          },
+          {
+            "type": "logo_image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

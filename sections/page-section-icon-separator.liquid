@@ -1,0 +1,27 @@
+{{ "page-section-icon-separator.css" | asset_url | stylesheet_tag }}
+
+<section class="page-section-icon-separator">
+    <div class="separator-line" style="--icon_url: url({{section.settings.icon |img_url: '90x'}})"></div>
+</section>
+
+
+
+ {% schema %}
+  {
+      "name":"Section Icon Separator",
+      "class": "section-icon-separator",
+      "settings":[
+          {
+              "type": "image_picker",
+              "id": "icon",
+              "label": "Icon for Separator"
+          }
+      ],
+      "presets": [
+        {
+            "name": "Section Icon Separator",
+            "category": "Separator"
+        }
+      ]
+  }
+  {% endschema %}

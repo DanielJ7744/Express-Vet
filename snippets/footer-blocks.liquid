@@ -1,0 +1,177 @@
+{%- if block.settings.container_width != 95 -%}
+  {%- assign row_width = row_width | minus: 100 -%}
+  {%- assign row_width = row_width | plus: block.settings.container_width -%}
+  {%- if row_width > 100 -%}
+  <div class="footer__clear small--hide"></div>
+  {%- endif -%}
+	<div {{ block.shopify_attributes }} class="grid__item footer__item--{{ block.id }}" data-type="{{ block.type }}">
+        {%- style -%}
+        @media only screen and (min-width: 769px) and (max-width: 959px) {
+          .footer__item--{{ block.id }} {
+            width: 50%;
+            padding-top: 40px;
+          }
+          .footer__item--{{ block.id }}:nth-child(2n + 1) {
+            clear: left;
+          }
+        }
+          
+        @media only screen and (min-width: 960px) {
+          .footer__item--{{ block.id }} {
+            width: {{ block.settings.container_width }}%;
+          }
+        }
+        {%- endstyle -%}
+
+        {% case block.type %}
+          {% when 'logo_social' %}
+            {% include 'footer-logo', block: block %}
+          {% when 'custom' %}
+            {% include 'footer-custom-text', block: block %}
+          {% when 'newsletter' %}
+        	{% include 'footer-newsletter', block: block %}
+          {% when 'menu' %}
+            {% include 'footer-menu', block: block %}
+          {% when 'account' %}
+            {% include 'footer-account', block: block %}
+      	  {% when 'payments' %}
+      		{% comment %}
+            {% if section.settings.show_payment_icons %}
+            {% unless shop.enabled_payment_types == empty %}
+            <ul class="inline-list payment-icons footer__section">
+              {% for type in shop.enabled_payment_types %}
+              <li class="icon--payment">
+                {{ type | payment_type_svg_tag }}
+              </li>
+              {% endfor %}
+            </ul>
+            {% endunless %}
+            {% endif %}
+
+            {% endcomment %}
+      		<div class="footer-payments">
+              <div class="paymet-group">
+                {% comment %} <span class="ic-span"><span class="ic-playment">{% include 'icons' with icon: 'paypal' %}</span></span> {% endcomment %}
+                <span class="ic-span"><img class="ic-playment" src="{{ 'visa.svg' | asset_url }}" ></span>
+                <span class="ic-span"><img class="ic-playment" src="{{ 'mastercard.svg' | asset_url }}" ></span>
+                {% comment %} <span class="ic-span"><img class="ic-playment" src="https://cdn.shopify.com/s/files/1/0551/5922/6530/files/american-express_256x256.png?v=1623363295" ></span>
+                <span class="ic-span"><img class="ic-playment" src="https://cdn.shopify.com/s/files/1/0551/5922/6530/files/Discover_256x256.png?v=1623363514" ></span> {% endcomment %}
+              </div>
+              {%- if block.settings.image != blank -%}
+              <div class="footer__brand">
+                <img src="{{ block.settings.image | img_url: '500x' }}" alt="{{ block.settings.image.alt | default: shop.name }}">
+              </div>
+              {%- endif -%}
+            </div>
+      	  {% when 'map' %}
+      		{% comment %}
+      		<script async defer src="https://maps.googleapis.com/maps/api/js?key={{ block.settings.api_key }}&callback=initMap"></script>
+            <div id="map"></div>
+            <style>
+              #map {
+                width: 100%;
+                height: 300px;
+              }
+            </style>
+            <script>
+              var geocoder;
+              var map;
+              var address = "{{ block.settings.map_address | escape }}";
+              function initMap() {
+                var map = new google.maps.Map(document.getElementById('map'), {
+                  zoom: 14,
+                  center: {lat: 33.36528, lng: -111.738107}
+                });
+                geocoder = new google.maps.Geocoder();
+                codeAddress(geocoder, map);
+              }
+
+              function codeAddress(geocoder, map) {
+                geocoder.geocode({'address': address}, function(results, status) {
+                  console.log(status);
+                  if (status === 'OK') {
+                    map.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                      map: map,
+                      position: results[0].geometry.location
+                    });
+                  } else {
+                    console.log('Geocode was not successful for the following reason: ' + status);
+                  }
+                });
+              }
+            </script>
+      		{%- endcomment -%}
+      		<script>
+              theme.strings.addressError = {{ 'sections.map.address_error' | t | json }};
+              theme.strings.addressNoResults = {{ 'sections.map.address_no_results' | t | json }};
+              theme.strings.addressQueryLimit = {{ 'sections.map.address_query_limit_html' | t | json }};
+              theme.strings.authError = {{ 'sections.map.auth_error_html' | t | json }};
+            </script>
+
+            {%- assign display_map = false -%}
+            {%- assign onboarding = false -%}
+            {%- assign bg_image = block.settings.background_image -%}
+
+            {%- if block.settings.api_key == blank and bg_image == blank -%}
+              {%- assign onboarding = true -%}
+            {%- endif -%}
+            {%- if block.settings.api_key != blank and block.settings.map_address -%}
+              {%- assign display_map = true -%}
+            {%- endif -%}
+
+            {%- if bg_image.src != blank -%}
+              {%- unless display_map -%}
+                {%- style -%}
+                  .map-{{ block.id }} {
+                    background-size: cover;
+                    background-position: center;
+                    background-image: url("{{ bg_image | img_url: '1800x' }}");
+                    background-position: {{ block.settings.background_image_position | default: 'center center' }};
+                  }
+
+                  @media only screen and (max-width: 750px) {
+                    .map-{{ block.id }} {
+                      padding-top: {{ 1 | divided_by: bg_image.aspect_ratio | times: 100 }}%;
+                    }
+                  }
+                {%- endstyle -%}
+              {%- endunless -%}
+            {%- endif -%}
+            <div class="map-section" data-section-id="{{ block.id }}" data-section-type="map" data-aos="map-section__animation">
+              {%- if block.settings.title != blank or block.settings.address != blank -%}
+                <div class="map-section__overlay-wrapper">
+                  <div class="animation-cropper">
+                    <div class="animation-contents">
+                      <div class="map-section__overlay">
+                        {%- if block.settings.map_title != blank -%}
+                          <h3 class="text-spacing">{{ block.settings.map_title | escape }}</h3>
+                        {%- endif -%}
+                        {%- if block.settings.address != blank -%}
+                          <div class="rte-setting text-spacing">{{ block.settings.address }}</div>
+                          {%- if block.settings.show_button -%}
+                            <a href="https://maps.google.com?daddr={{ block.settings.map_address | escape }}" class="btn btn--small" target="_blank">{{ 'sections.map.get_directions' | t }}</a>
+                          {%- endif -%}
+                        {%- endif -%}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+              <a class="map-section__link" href="https://www.google.ca/maps/place/{{ block.settings.map_address | escape }}" target="_blank" aria-label="{{ block.settings.map_address | escape }}"></a>
+              {%- if onboarding -%}
+                <div class="map-onboarding">
+                  {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                </div>
+              {%- endif -%}
+              <div
+                id="Map-{{ block.id }}"
+                data-map
+                class="map-section__container map-{{ block.id }}"
+                data-address-setting="{{ block.settings.map_address | escape }}"
+                data-api-key="{{ block.settings.api_key }}"></div>
+            </div>
+      	  
+        {% endcase %}
+	</div>
+{% endif %}

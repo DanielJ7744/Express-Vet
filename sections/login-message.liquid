@@ -1,0 +1,39 @@
+<section class="login-message-wrapper">
+  <div class="page-width">
+    <div class="login-text-container">
+      {% if section.settings.login_message_header %}
+        <h2>{{ section.settings.login_message_header }}</h2>
+      {% endif %}
+      {% if section.settings.page_content %}
+        <p>{{ section.settings.page_content.content }}</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Login Page Message",
+  "class": "login_page_message",
+  "settings": [
+    {
+      "type": "text",
+      "id": "login_message_header",
+      "label": "Header Message",
+      "placeholder": "Text"
+    },
+    {
+      "type": "page",
+      "id": "page_content",
+      "label": "Page content",
+      "info": "This setting will render the page content of the page selected"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Login Page Message",
+      "category": "login Page Item"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,299 @@
+{%- capture pet_fields -%}
+name:Name:text:required,
+breed_type:Breed Type:select|Mixed Breed|PureBreed|Unknown Breed:required,
+breed:Breed:text:required,
+weight:Weight:text:required,
+gender:Gender:select|Male|Female:required,
+celebration_day:Celebration Day:select|Birthday|Adoption Day:required,
+birthday:Birthday:text:required,
+current_medications:Current Medications:text:,
+allergies:Allergies:text:,
+health_conditions:Health Conditions:text:
+{%- endcapture -%}
+
+{%- capture pet_fields -%}
+name:Pet's Name:text:required,
+owner_name:Pet owner’s first and last name:text:required,
+weight:Weight:text:required,
+species:Species:text:required,
+birthday:Birthday/age:text:required
+{%- endcapture -%}
+{%- capture vet_fields -%}
+name:Clinic Name:text:required,
+veterinarian:Veterinarian:text:norequired,
+address:Address:text:required,
+phone:Phone:phone:required,
+fax:Fax:text:required,
+email:Email:email:norequired
+{%- endcapture -%}
+{%- assign pet_fields = pet_fields | strip_newlines | split: ',' -%}
+{%- assign vet_fields = vet_fields | strip_newlines | split: ',' -%}
+<div data-section-id="{{ section.id }}" data-section-type="account-section" data-customer-id="{{ customer.id }}" data-customer-email="{{ customer.email }}">
+  <div class="account-section-headers">
+    <h4 class="section-header__title"><span data-type="account" data-pvt-nav data-pvt-id="all">My Account</span></h4>
+    <h4 class="section-header__title"><span data-type="orders" data-pvt-nav data-pvt-id="all">My Orders</span></h4>
+    <h4 class="section-header__title"><span data-type="refills" data-pvt-nav data-pvt-id="all">My Refills</span></h4>
+    <h4 class="section-header__title"><span data-type="pets" data-pvt-nav data-pvt-id="all">My Pets</span></h4>
+    <h4 class="section-header__title"><span data-type="vets" data-pvt-nav data-pvt-id="all">My Vets</span></h4>
+    <h4 class="section-header__title"><a data-type="manage-subscriptions" href="/tools/recurring/login">Manage Subscriptions</a></h4>
+    <h4 class="section-header__title"><a href="{{ routes.account_logout_url }}" class="btn btn--small section-header__link-">{{ 'layout.customer.log_out'| t }}</a></h4>
+  </div>
+  <div class="page-width page-content">
+    <div class="account-content pvt-account-content hide" id="pets">
+      <header class="section-header text-center">
+        <h2 class="section-header__title">My Pets</h2>
+      </header>
+      <div class="pvt-content pvt-list hide" id="pets-list">
+        <header class="section-subheader">
+          <span class="btn pvt-add-btn btn--small" data-pvt-add>Add Pet</span>
+        </header>
+        <div id="pvt-item-template">
+          <div class="grid__item small--one-whole medium-up--one-whole">
+            <div class="pet-vet-card" data-type="pvtType" data-pvt-item data-pvt-id="pvtID">
+              <h5>pvtName</h5>
+              <div class="pvt-details-info">pvtDetails</div>
+            </div>
+          </div>
+        </div>
+        <div class="grid" id="pets-list-grid"></div>
+      </div>
+          
+      <div class="pvt-content pvt-view hide" id="pets-view">
+        <header class="section-subheader">
+          <h2 class="section-header__title">Details</h2>
+          <span class="btn pvt-edit-btn btn--small" data-pvt-edit>Edit</span>
+        </header>
+        {% for pet_field in pet_fields %}
+        {% assign _pet_field = pet_field | split: ':' %}
+        <div class="pvt-row">
+          <label for="name">{{ _pet_field[1] }}</label>
+          <div class="input-full" data-for="{{ _pet_field[0] }}"></div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="pvt-content pvt-edit hide" id="pets-edit">
+        <header class="section-subheader">
+          <h2 class="section-header__title">Details</h2>
+          <span class="btn pvt-cancel-btn btn--small" data-pvt-cancel>Cancel</span>
+        </header>
+        <form id="pets-form" class="pvt-form">
+          {% for pet_field in pet_fields %}
+          {% assign _pet_field = pet_field | split: ':' %}
+          <div class="pvt-row">
+            <label for="name">{{ _pet_field[1] }}{% if _pet_field[3] == 'required' %}<abbr class="required">*</abbr>{% endif %}</label>
+            <div class="input-full" data-for="{{ _pet_field[0] }}">
+              {%- assign input = _pet_field[2] | split: '|' -%}
+              {%- if input[0] == 'select' -%}
+              <select class="input-full pvt-info" name="pets_{{ _pet_field[0] }}" {{ _pet_field[3] }} >
+                {%- for option in input -%}
+                {%- unless forloop.first -%}
+                <option value="{{ option }}">{{ option }}</option>
+                {%- endunless -%}
+                {%- endfor -%}
+              </select>
+              {%- else -%}
+              <input type="{{ input[0] }}" class="input-full pvt-info" name="pets_{{ _pet_field[0] }}" {{ _pet_field[3] }} />
+              {%- endif -%}
+            </div>
+          </div>
+          {% endfor %}
+          <div class="pvt-row">
+            <button class="btn btn--full pvt-save-btn" data-pvt-save>Save</button>
+          </div>
+          <div class="pvt-row">
+            <span class="btn btn--full pvt-delete-btn" data-pvt-delete>Delete</span>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="account-content pvt-account-content hide" id="vets">
+      <header class="section-header text-center">
+        <h2 class="section-header__title">My Vets</h2>
+      </header>
+      <div class="pvt-content pvt-list hide" id="vets-list">
+        <header class="section-subheader">
+          <span class="btn pvt-add-btn btn--small" data-pvt-add>Add Vet</span>
+        </header>
+        <div id="pvt-item-template">
+          <div class="grid__item small--one-whole medium-up--one-whole">
+            <div class="pet-vet-card" data-type="vets" data-pvt-item data-pvt-id="pvtID">
+              <h5>pvtName</h5>
+            </div>
+          </div>
+        </div>
+        <div class="grid" id="vets-list-grid"></div>
+      </div>
+          
+      <div class="pvt-content pvt-view hide" id="vets-view">
+        <header class="section-subheader">
+          <h2 class="section-header__title">Details</h2>
+          <span class="btn pvt-edit-btn btn--small" data-pvt-edit>Edit</span>
+        </header>
+        {% for vet_field in vet_fields %}
+        {% assign _vet_field = vet_field | split: ':' %}
+        <div class="pvt-row">
+          <label for="name">{{ _vet_field[1] }}</label>
+          <div class="input-full" data-for="{{ _vet_field[0] }}"></div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="pvt-content pvt-edit hide" id="vets-edit">
+        <header class="section-subheader">
+          <h1 class="section-header__title">Details</h1>
+          <span class="btn pvt-cancel-btn btn--small" data-pvt-cancel>Cancel</span>
+        </header>
+        <form id="vets-form" class="pvt-form">
+          {% for vet_field in vet_fields %}
+          {% assign _vet_field = vet_field | split: ':' %}
+          <div class="pvt-row">
+            <label for="name">{{ _vet_field[1] }}{% if _vet_field[3] == 'required' %}<abbr class="required">*</abbr>{% endif %}</label>
+            <div class="input-full" data-for="{{ _vet_field[0] }}">
+              {%- assign input = _vet_field[2] | split: '|' -%}
+              {%- if input[0] == 'select' -%}
+              <select class="input-full pvt-info" name="vets_{{ _vet_field[0] }}" {{ _vet_field[3] }} >
+                {%- for option in input -%}
+                {%- unless forloop.first -%}
+                <option value="{{ option }}">{{ option }}</option>
+                {%- endunless -%}
+                {%- endfor -%}
+              </select>
+              {%- else -%}
+              <input type="{{ input[0]}}" class="input-full pvt-info" name="vets_{{ _vet_field[0] }}" {{ _vet_field[3] }} />
+              {%- endif -%}
+            </div>
+          </div>
+          {% endfor %}
+          <div class="pvt-row">
+            <button class="btn btn--full pvt-save-btn" data-pvt-save>Save</button>
+          </div>
+          <div class="pvt-row">
+            <span class="btn btn--full pvt-delete-btn" data-pvt-delete>Delete</span>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="account-content hide" id="refills">
+      <header class="section-header text-center">
+        <h2 class="section-header__title">My Refills</h2>
+      </header>
+      <div class="grid">
+        <div class="grid__item">
+          {%- comment -%}
+          <h2>{{ 'customer.orders.title' | t }}</h2>
+          {%- endcomment -%}
+          <table class="table--responsive table--small-text">
+            <thead>
+              <tr>
+                <th>{{ 'customer.orders.order_number' | t }}</th>
+                <th>{{ 'customer.orders.date' | t }}</th>
+                <th>{{ 'customer.orders.payment_status' | t }}</th>
+                <th>Order Status</th>
+                <th>Refill Status</th>
+                <th>{{ 'customer.orders.fulfillment_status' | t }}</th>
+                <th>{{ 'customer.orders.total' | t }}</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="account-content hide" id="account">
+      <header class="section-header text-center">
+        <h2 class="section-header__title">{{ 'customer.account.title' | t }}</h2>
+      </header>
+      <div class="grid">
+        <div class="grid__item">
+          <strong class="h3">{{ customer.name }}</strong>
+          {{ customer.default_address | format_address }}
+          <p><a href="{{ routes.account_addresses_url }}" class="text-link">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a></p>
+        </div>
+      </div>
+    </div>
+    {% paginate customer.orders by 20 %}
+    <div class="account-content hide" id="orders">
+      <header class="section-header text-center">
+        {%- comment -%}
+        <h2 class="section-header__title">{{ 'customer.orders.title' | t }}</h2>
+        {%- endcomment -%}
+        <h2 class="section-header__title">My Orders</h2>
+      </header>
+      <div class="grid">
+        <div class="grid__item">
+          {% if customer.orders.size != 0 %}
+            <table class="table--responsive table--small-text">
+              <thead>
+                <tr>
+                  <th>{{ 'customer.orders.order_number' | t }}</th>
+                  <th>{{ 'customer.orders.date' | t }}</th>
+                  <th>{{ 'customer.orders.payment_status' | t }}</th>
+                  <th>Order Status</th>
+                  <th>{{ 'customer.orders.fulfillment_status' | t }}</th>
+                  <th>{{ 'customer.orders.total' | t }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for order in customer.orders %}
+                  {%- assign order_status = '' -%}
+                  {%- for tag in order.tags -%}
+                	{%- assign _tag = tag | split: ':' -%}
+                	{%- if _tag[0] == 'w3os' -%}
+                	  {%- if _tag[1] contains 'Refills' -%}
+                		{%- assign refill_status = _tag[1] -%}
+                	  {%- else -%}
+                	  {%- capture order_status -%}{{ order_status }}{% if order_status != '' %} {% endif %}{{ _tag[1] }}{%- endcapture -%}
+                	  {%- endif -%}
+                	{%- endif -%}
+                  {%- endfor -%}
+                  <tr class="table__section" data-json="{{ order.tags }}">
+                    <td data-label="{{ 'customer.orders.order_number' | t }}">{{ order.name | link_to: order.customer_url }}</td>
+                    <td data-label="{{ 'customer.orders.date' | t }}">{{ order.created_at | time_tag: format: 'date' }}</td>
+                    <td data-label="{{ 'customer.orders.payment_status' | t }}">{{ order.financial_status_label }}</td>
+                    <td data-label="Order Status">{{ order_status }}</td>
+                    <td data-label="{{ 'customer.orders.fulfillment_status' | t }}">{{ order.fulfillment_status_label }}</td>
+                    <td data-label="{{ 'customer.orders.total' | t }}">{{ order.total_price | money }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+
+            <hr class="hr--clear">
+
+          {% else %}
+
+            <p>{{ 'customer.orders.none' | t }}</p>
+
+          {% endif %}
+        </div>
+
+        {% comment %}
+        <div class="grid__item medium-up--one-third">
+          <h3>{{ 'customer.account.details' | t }}</h3>
+
+          <p class="h5">{{ customer.name }}</p>
+          <!-- Begin ReCharge code -->
+          <p id="rc_link_container">
+              <a href="/tools/recurring/login">Manage Subscriptions</a>
+          </p>
+          <!-- End ReCharge code -->
+
+          {% comment %}
+          <p><a href="/tools/checkout/front_end/login" class="text-link">Manage Subscription</a></p>
+          {% endcomment %}
+
+          {{ customer.default_address | format_address }}
+
+          <p><a href="{{ routes.account_addresses_url }}" class="text-link">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a></p>
+        </div>
+        {% endcomment %}
+      </div>
+
+      {% if paginate.pages > 1 %}
+        {% include 'pagination' %}
+      {% endif %}
+    </div>
+    {% endpaginate %}
+  </div>
+</div>

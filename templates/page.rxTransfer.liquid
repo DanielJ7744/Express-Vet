@@ -1,0 +1,18 @@
+<div class="page-width page-content">
+  <div class="grid">
+    <div class="grid__item medium-up--three-quarters medium-up--push-one-eighth">
+      {%- include 'breadcrumbs' -%}
+      {% comment %} <header class="section-header">
+        <h1 class="section-header__title">{{ page.title }}</h1>
+      </header> {% endcomment %}
+
+      <div class="rte rte--nomargin">
+        {{ page.content }}
+        {% section 'rx-transfer-section' %}
+        
+      </div>
+
+    </div>
+  </div>
+
+</div>

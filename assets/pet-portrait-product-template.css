@@ -1,0 +1,13 @@
+.fileupload {
+  margin-bottom: 20px;
+}
+.product_line-item-property textarea {
+  margin-bottom: 30px;
+  resize: none;
+}
+
+.variant-input-wrap input[type="radio"]:checked + label {
+  background-color: #01aff1;
+  color: #fff;
+  box-shadow: none;
+}

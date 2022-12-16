@@ -1,0 +1,37 @@
+:root{
+    --main-color: {{ settings.color_header_text | default: '#000' }};
+}
+
+.icons-with-header-text-wrapper_top{
+    margin-bottom: 40px;
+}
+.icons-with-header-text-wrapper_top h2{
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--main-color);
+}
+.icons-with-header-text-wrapper_bottom{ 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.icons-with-header-item{
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: center;
+    max-width: 260px;
+    min-height: 200px;
+    flex: 1 1 260px;
+}
+.icons-with-header-item .item-bottom{
+    text-align: center;
+}
+.icons-with-header-item .item-bottom h3{
+    font-size: 1rem;
+    font-weight: 900;
+}
+.icons-with-header-item .item-bottom p{
+    font-size: .8rem;
+}

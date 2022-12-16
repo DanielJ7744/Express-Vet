@@ -1,0 +1,25 @@
+<section class="map-hero-image section-{{section.id}}">
+    {% if section.settings.map_hero_img %}
+        <img src="{{section.settings.map_hero_img |img_url: '1920x1080'}}" alt="{{ section.settings.map_hero_img }}">
+    {% endif %}
+</section>
+
+ {% schema %}
+  {
+      "name":"Map Hero Image",
+      "class": "map-hero-image",
+      "settings":[
+          {
+              "type": "image_picker",
+              "id": "map_hero_img",
+              "label": "Map Hero Image"
+          }
+      ],
+      "presets": [
+        {
+            "name": "Map Hero Image",
+            "category": "Map"
+        }
+      ]
+  }
+  {% endschema %}

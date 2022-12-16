@@ -1,0 +1,26 @@
+.img-wrapper img{
+    display:block;
+    margin: 50px auto;
+    max-width: 700px;
+    width:100%;
+
+}
+.form-line{
+  border-bottom: 2px solid gray;
+}
+#aaa-form-builder{
+  max-width: 600px;
+}
+#aaa-form-builder h2{
+  font-size:1.5em;
+  font-weight:bold;
+  margin-bottom: 20px;
+}
+.add_prescription-wrapper {
+    text-align: end;
+    color: #00bef4;
+}
+#add_prescription {
+    cursor: pointer;
+  display: inline;
+}

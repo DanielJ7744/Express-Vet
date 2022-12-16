@@ -1,0 +1,154 @@
+<div data-section-id="{{ section.id }}">
+  <div class="page-width">
+    <div class="grid">
+      <div class="grid__item medium-up--two-thirds">
+        {%- assign img_url = section.settings.image1 | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+        <div class="bg-img">
+          {%if section.settings.image1==blank%}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%else%}
+          <img class="lazyload"
+               data-src="{{img_url }}"
+               data-widths="[180, 360, 540, 720, 900, 1080]"
+               data-aspectratio="{{ preview_image.aspect_ratio }}"
+               data-sizes="auto"
+               alt="{{ preview_image.alt | escape }}">
+          {%endif%}
+          <div class="section-title-one">
+            <h3 class="title-header">{{section.settings.title1}}</h3>
+            <p class="sub-content">{{section.settings.content}}</p>
+            <a href="{{section.settings.shopnow}}" class="btn">SHOP NOW</a>
+          </div>
+        </div>
+
+      </div>
+      <div class="grid__item medium-up--one-third">
+        {%- assign img_url = section.settings.image2 | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+        <div class="bg-img">
+          {%if section.settings.image2==blank%}
+          <div style="    padding: 0; margin-bottom: 20px;">
+            <style>
+              .placeholder-svg{
+              padding:0;
+              }
+            </style>
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+          {%else%}
+          <img class="lazyload"
+               data-src="{{img_url }}"
+               data-widths="[180, 360, 540, 720, 900, 1080]"
+               data-aspectratio="{{ preview_image.aspect_ratio }}"
+               data-sizes="auto"
+               alt="{{ preview_image.alt | escape }}"
+               style = "padding-bottom:18px;">
+          {%endif%}
+          <div class="section-title-two">
+            <h3 class="title-header2">{{section.settings.title2}}</h3>
+            <a href="{{section.settings.shopnow1}}" class="blue">shop now></a>
+          </div>
+        </div>
+
+        {%- assign img_url = section.settings.image3 | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+        <div class="bg-img">
+          {%if section.settings.image3==blank%}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%else%}
+          <img class="lazyload"
+               data-src="{{img_url }}"
+               data-widths="[180, 360, 540, 720, 900, 1080]"
+               data-aspectratio="{{ preview_image.aspect_ratio }}"
+               data-sizes="auto"
+               alt="{{ preview_image.alt | escape }}">
+          {%endif%}
+        </div>
+        <div class="section-title-three">
+          <h3 class="title-header3">{{section.settings.title3}}</h3>
+          <p>{{section.settings.content3}}</p>
+          <a href="{{section.settings.shopnow1}}" class="blue">shop now></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "text with image column",
+	"class": "index-section",
+    "settings": [
+		  {
+          "type": "image_picker",
+          "id": "image1",
+          "label": "Image1"		
+          },
+          {
+          "type": "text",
+          "id": "title1",
+          "default": "title",
+          "label": "header Title"
+          },
+          {
+          "type": "text",
+          "id": "content",
+          "default": "content....",
+          "label": "content"
+          },
+		  {
+			"type":"url",
+			"id":"shopnow",
+            "label": "shop now",
+            "info": "Optional"			
+		  },
+          {
+          "type": "image_picker",
+          "id": "image2",
+          "label": "Image2"		
+          },
+          {
+          "type": "text",
+          "id": "title2",
+          "default": "title2",
+          "label": "header Title2"
+          },
+		  {
+			"type":"url",
+			"id":"shopnow1",
+            "label": "shop now1",
+            "info": "Optional"			
+		  },
+          {
+          "type": "image_picker",
+          "id": "image3",
+          "label": "Image3"		
+          },
+		  {
+			"type":"url",
+			"id":"shopnow2",
+            "label": "shop now2",
+            "info": "Optional"			
+		  },
+          {
+          "type": "text",
+          "id": "title3",
+          "default": "title3",
+          "label": "header Title3"
+          },
+          {
+          "type": "text",
+          "id": "content3",
+          "default": "Simply dummy text of",
+          "label": "content3"
+          }
+	],
+	 "presets": [{
+      "name": "text with image column",
+	  "category": "03-08"
+    }]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

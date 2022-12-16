@@ -1,0 +1,157 @@
+{% if section.settings.show_section %}
+{% for block in section.blocks %}
+    {% assign handle = block.settings.product_id %}
+    {% if handle == product.handle %}
+<div class="page-width">
+<h1 class="heading-primary">{{ section.settings.heading }}</h1>
+<div class="accordion">
+  <dl>
+    {% for block in section.blocks %}
+      
+    
+      {%- if block.settings.content_heading_1 != blank -%}
+      <dt>
+        <a href="#accordion_1" aria-expanded="false" aria-controls="accordion_1" class="accordion-title accordionTitle js-accordionTrigger">{{ block.settings.content_heading_1}}</a>
+      </dt>
+      <dd class="accordion-content accordionItem is-collapsed" id="accordion_1" aria-hidden="true">
+        <div>{{ block.settings.content_text_1 }}</div>
+      </dd>
+      {%- endif -%}
+
+
+      {%- if block.settings.content_heading_2 != blank -%}
+      <dt>
+        <a href="#accordion_2" aria-expanded="false" aria-controls="accordion_2" class="accordion-title accordionTitle js-accordionTrigger">{{ block.settings.content_heading_2}}</a>
+      </dt>
+      <dd class="accordion-content accordionItem is-collapsed" id="accordion_2" aria-hidden="true">
+        <div>{{ block.settings.content_text_2 }}</div>
+      </dd>
+      {%- endif -%}
+      {%- if block.settings.content_heading_3 != blank -%}
+      <dt>
+        <a href="#accordion_3" aria-expanded="false" aria-controls="accordion_3" class="accordion-title accordionTitle js-accordionTrigger">{{ block.settings.content_heading_3}}</a>
+      </dt>
+      <dd class="accordion-content accordionItem is-collapsed" id="accordion_3" aria-hidden="true">
+        <div>{{ block.settings.content_text_3 }}</div>
+      </dd>
+      {%- endif -%}
+      {%- if block.settings.content_heading_4 != blank -%}
+      <dt>
+        <a href="#accordion_4" aria-expanded="false" aria-controls="accordion_4" class="accordion-title accordionTitle js-accordionTrigger">{{ block.settings.content_heading_4}}</a>
+      </dt>
+      <dd class="accordion-content accordionItem is-collapsed" id="accordion_4" aria-hidden="true">
+        <div>{{ block.settings.content_text_4 }}</div>
+      </dd>
+      {%- endif -%}
+      {%- if block.settings.content_heading_5 != blank -%}
+      <dt>
+        <a href="#accordion_5" aria-expanded="false" aria-controls="accordion_5" class="accordion-title accordionTitle js-accordionTrigger">{{ block.settings.content_heading_5}}</a>
+      </dt>
+      <dd class="accordion-content accordionItem is-collapsed" id="accordion_5" aria-hidden="true">
+        <div>{{ block.settings.content_text_5 }}</div>
+      </dd>
+      {%- endif -%}
+    {% endfor %}
+    
+  </dl>
+</div>
+</div>
+ {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% schema %}
+  {
+    "name": "How it works",
+    "class": "how-it-works",
+    "settings": [
+      
+      {
+        "type": "checkbox",
+        "id": "show_section",
+        "label": "Show How it Works",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Section Heading"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "content",
+        "name": "Content",
+        "settings": [
+          {
+            "type": "product",
+            "id": "product_id",
+            "label": "Content Heading"
+          },
+			{
+            "type": "text",
+            "id": "content_heading_1",
+            "label": "Content Heading"
+          },
+		 {
+            "type": "html",
+            "id": "content_text_1",
+            "label": "Content"
+          },
+		  {
+            "type": "text",
+            "id": "content_heading_2",
+            "label": "Content Heading"
+          },
+		 {
+            "type": "html",
+            "id": "content_text_2",
+            "label": "Content"
+          },
+		 {
+            "type": "text",
+            "id": "content_heading_3",
+            "label": "Content Heading"
+          },
+		 {
+            "type": "html",
+            "id": "content_text_3",
+            "label": "Content"
+          },
+          {
+            "type": "text",
+            "id": "content_heading_4",
+            "label": "Content Heading"
+          },
+		 {
+            "type": "html",
+            "id": "content_text_4",
+            "label": "Content"
+          },
+          {
+            "type": "text",
+            "id": "content_heading_5",
+            "label": "Content Heading"
+          },
+		 {
+            "type": "html",
+            "id": "content_text_5",
+            "label": "Content"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "How it works",
+        "category": "Text",
+        "blocks": [
+          {
+            "type": "content"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+

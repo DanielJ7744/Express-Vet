@@ -1,0 +1,144 @@
+{% if section.settings.show-section %}
+<div class="container">
+  <div class="video_wrap-outer" data-section-id="{{ section.id }}"
+  data-section-type="testimonials">
+    <h1>{{ section.settings.video-heading }}</h1>
+    <div class=""> 
+      
+      {% if section.blocks.size > 0 %}
+    <div class="testimonials-wrapper">
+      <div class="testimonials-slider" id="Testimonials-{{ section.id }}" data-count="{{ section.blocks.size }}">
+        {% for block in section.blocks %}
+        {% if block.settings.select-product == product.handle %}
+        <div
+            class="testimonials-slide--{{ block.id }}"
+            data-aos="row-of-{{ section.blocks.size }}"
+            {{ block.shopify_attributes }}>
+        
+        
+        {% if block.type == 'testimonial' %}
+        
+
+        
+			
+        		
+            <div class="video-wrap">
+
+          <div class="video-box video-container-blk embed-responsive embed-responsive-16by9 video-story">
+            {% if block.settings.add-video.type == "youtube" %}
+            <iframe class="embed-responsive-item"
+                    src="//www.youtube.com/embed/{{ block.settings.add-video.id }}?rel=0&showinfo=0&vq=720"                
+                    frameborder="0"
+                    allowfullscreen></iframe>
+            {% endif %}
+            {% if block.settings.add-video.type == "vimeo" %}
+            <iframe class="embed-responsive-item"
+                    src="//player.vimeo.com/video/{{ block.settings.add-video.id }}?byline=0&portrait=0&badge=0"                  
+                    frameborder="0"
+                    allowfullscreen></iframe>
+            {% endif %}
+          </div>
+          <h2>{{ block.settings.author-heading}}</h2>
+    		<p>{{ block.settings.author-text}}</p>
+        </div>
+          
+			
+          
+    {% endif %}
+        </div>
+        {% endif %}
+        
+        
+          
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+      
+      
+        
+    </div>
+    
+  </div>
+</div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Testimonial Video",
+	"max_blocks": 10,
+     "settings": [
+  	  {
+  		"type": "checkbox",
+  		"id": "show-section",
+		"label" : "Show Video",
+		"default": true
+  	  },
+	{
+  		"type": "text",
+  		"id": "video-heading",
+		"label" : "Video Heading"
+  	  }
+	  
+  ],
+	"blocks": [
+      {
+        "type": "testimonial",
+        "name": "Testimonial",
+        "settings": [
+      {
+  		"type": "product",
+  		"id": "select-product",
+		"label" : "Select spacific product for video"
+  	  },    
+      {
+  		"type": "text",
+  		"id": "author-heading",
+		"label" : "Author Heading"
+  	  },
+	  {
+  		"type": "text",
+  		"id": "author-text",
+		"label" : "Author Description"
+  	  },
+	  {
+  		"type": "image_picker",
+  		"id": "video-image",
+		"label" : "Banner Image"
+  	  },
+      {
+        "type": "video_url",
+        "id": "add-video",
+        "label": {
+        "en": "Video link"
+        },
+        "accept": ["youtube", "vimeo"],
+        "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
+      }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Testimonial Video",
+        "category": "Slider",
+        "blocks": [
+          {
+            "type": "testimonial"
+          },
+          {
+            "type": "testimonial"
+          },
+          {
+            "type": "testimonial"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,46 @@
+{
+  "sections": {
+    "main": {
+      "type": "pet-portrait-product-template",
+      "settings": {
+        "description_style": "full",
+        "breadmenu": "main-menu",
+        "social_enable": true,
+        "image_position": "left",
+        "image_size": "medium",
+        "thumbnail_position": "beside",
+        "thumbnail_arrows": false,
+        "enable_video_looping": true,
+        "product_video_style": "muted",
+        "details-content": "",
+        "show_tab_content_info": false,
+        "show_file_upload": true
+      }
+    },
+    "reviews": {
+      "type": "stampedReviews",
+      "settings": {}
+    },
+    "product_recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "show_product_recommendations": true,
+        "product_recommendations_heading": "You may also like",
+        "related_count": 5
+      }
+    },
+    "recently_viewed": {
+      "type": "recently-viewed",
+      "settings": {
+        "show_section": true,
+        "recent_count": 5
+      }
+    }
+  },
+  "order": [
+    "main",
+    "reviews",
+    "product_recommendations",
+    "recently_viewed"
+  ]
+}

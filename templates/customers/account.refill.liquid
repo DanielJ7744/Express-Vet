@@ -1,0 +1,30 @@
+{%- layout none -%}
+{%- paginate customer.orders by 250 -%}
+{%- if customer.orders.size != 0 -%}
+  {%- for order in customer.orders -%}
+	{%- assign refill_status = '' -%}
+    {%- assign order_status = '' -%}
+    {%- for tag in order.tags -%}
+      {%- assign _tag = tag | split: ':' -%}
+      {%- if _tag[0] == 'w3os' -%}
+      	{%- if _tag[1] contains 'Refills' -%}
+          {%- assign refill_status = _tag[1] -%}
+        {%- else -%}
+          {%- capture order_status -%}{{ order_status }}{% if order_status != '' %} {% endif %}{{ _tag[1] }}{%- endcapture -%}
+        {%- endif -%}
+      {%- endif -%}
+	{%- endfor -%}
+	{%- if refill_status != '' -%}
+    <tr class="table__section" data-json="{{ order.tags }}">
+      <td data-label="{{ 'customer.orders.order_number' | t }}">{{ order.name | link_to: order.customer_url }}</td>
+      <td data-label="{{ 'customer.orders.date' | t }}">{{ order.created_at | time_tag: format: 'date' }}</td>
+      <td data-label="{{ 'customer.orders.payment_status' | t }}">{{ order.financial_status_label }}</td>
+      <td data-label="Order Status">{{ order_status }}</td>
+      <td data-label="Refill Status">{{ refill_status }}</td>
+      <td data-label="{{ 'customer.orders.fulfillment_status' | t }}">{{ order.fulfillment_status_label }}</td>
+      <td data-label="{{ 'customer.orders.total' | t }}">{{ order.total_price | money }}</td>
+	</tr>
+	{%- endif -%}
+  {% endfor %}
+{%- endif -%}
+{%- endpaginate -%}

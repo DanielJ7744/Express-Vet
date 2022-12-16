@@ -1,0 +1,23 @@
+{% if block.settings.title %}
+<p class="h4 footer__title small--hide">
+{{ block.settings.title }}
+</p>
+<button type="button" class="h4 footer__title collapsible-trigger collapsible-trigger-btn medium-up--hide" aria-controls="Footer-{{ block.id }}">
+  {{ block.settings.title }}{% include 'collapsible-icons' %}
+</button>
+{% endif %}
+<div{% if block.settings.title %} id="Footer-{{ block.id }}" class="collapsible-content collapsible-content--small"{% endif %}>
+  <div class="collapsible-content__inner">
+    <div class="footer__collapsible{% unless block.settings.title %} footer_collapsible--disabled{% endunless %}">
+      <ul class="no-bullets site-footer__linklist">
+        {% if customer %}
+        <li><a href="/account">Account</a></li>
+        <li>{{ 'Log out' | customer_logout_link }}</li>
+        {% else %}
+        <li>{{ 'Sign in' | customer_login_link }}</li>
+        <li>{{ 'Create Account' | customer_register_link }}</li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</div>

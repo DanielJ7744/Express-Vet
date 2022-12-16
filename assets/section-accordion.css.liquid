@@ -1,0 +1,82 @@
+.section-accordion-w-blocks .page-width{
+  max-width: 1500px;
+}
+.section-accordion-w-blocks {
+    margin: 50px 0;
+}
+.accordion-container {
+    width: 100%;
+  }
+  .accordion-header-container .accordion-subheader{
+      color: {{ settings.color_borders }};
+  }
+  .accordion-header-container .accordion-header{
+      /* font-size: 1rem; */
+  }
+.accordion-item {
+    border: 1px solid {{ settings.color_borders }};
+    border-radius: 10px;
+    margin: 10px auto;
+  }
+  .accordion-content-wrapper{
+    margin:20px;
+  }
+  .accordion-item .accordion-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    
+  }
+  .accordion-item .accordion-top .accordion-title{
+    margin: 0;
+    padding: 0;
+    font-size: 1.1rem;
+    font-weight: 900;
+  }
+ 
+  .accordion-item .accordion-top .accordion-icon .minus,
+  .accordion-item .accordion-top .accordion-icon .plus {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    background-color: {{ settings.color_borders }};
+    color: #fff;
+    border-radius: 50%;
+    font-size: 25px;
+    height: 30px;
+    width: 30px; 
+    line-height: 25px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+  .accordion-item .accordion-top .accordion-icon .minus svg,
+  .accordion-item .accordion-top .accordion-icon .plus svg {
+    fill: #fff;
+  }
+  .accordion-item .accordion-top .accordion-icon .minus.active,
+  .accordion-item .accordion-top .accordion-icon .plus.active {
+    display: flex;
+  }
+  
+  .accordion-bottom {
+    max-height: 0;
+    visibility: hidden;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    word-wrap: normal;
+    /* padding: 0 10px; */
+    transition: all 0.5s ease-in-out;
+    border-top: 1px dashed {{ settings.color_borders }};
+  }
+  .accordion-bottom.active {
+    height: 100%;
+    max-height: 1000px;
+    visibility: visible;
+    margin-top: 10px;
+  }
+  .accordion-bottom a {
+    color: {{ settings.color_borders }};
+  }

@@ -1,0 +1,49 @@
+
+{% if section.settings.show_link %}
+    <div class="button-container" style="text-align:{{section.settings.button_align}}">
+        <a class="btn" href="{{ section.settings.pet_form_link }}">{{ section.settings.pet_form_link_text }}</a>
+    </div>
+{% endif %}
+ {% schema %}
+  {
+      "name":"pet form",
+      "class": "pet-form-link",
+      "settings":[
+          {
+              "type": "checkbox",
+              "id": "show_link",
+              "label": "Show Link",
+              "default": false,
+              "info": "If check, will render link"
+          },
+          {
+              "type": "url",
+              "id": "pet_form_link",
+              "label": "Pet Form Link"
+          },
+          {
+              "type": "text",
+              "id": "pet_form_link_text",
+              "label": "Pet form Link Text",
+              "default": "Pet Form Button Text"
+          },
+          {
+              "type": "radio",
+              "id": "button_align",
+              "label": "Button Align",
+              "options": [
+                  { "value": "start", "label": "Left" },
+                  {"value": "center", "label": "Center"},
+                  {"value": "end", "label": "Right"}
+              ],
+              "default": "start"
+          }
+      ],
+      "presets": [
+        {
+            "name": "Pet Form",
+            "category": "Links"
+        }
+      ]
+  }
+  {% endschema %}

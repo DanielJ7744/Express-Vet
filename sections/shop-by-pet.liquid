@@ -1,0 +1,183 @@
+{%- style -%}
+.logo-bar--{{ section.id }} {
+  opacity: {{ section.settings.logo_opacity | divided_by: 100.0 }};
+}
+{%- endstyle -%}
+{%- assign per_row = section.settings.per_row -%}
+<div class="pet-list-section" data-section-id="{{ section.id }}" data-section-type="pet-list">
+  <div class="page-width">
+  {%- if section.settings.title != blank -%}
+    <div class="section-header">
+      <h2 class="section-header__title">{{ section.settings.title | escape }}</h2>
+    </div>
+  {%- endif -%}
+  </div>
+  <div class="page-width {% if section.settings.mobile_scrollable and section.settings.enable_slider == false %}page-width--flush-small{% endif %}">
+    {% if section.settings.enable_slider %}
+    {% capture args %}
+    {
+      "autoplay": {{ section.settings.slider_enable_autoplay }},
+      "arrows": {{ section.settings.slider_enable_arrows }},
+      "dots": {{ section.settings.slider_enable_dots }},
+      "slidesToShow": {{ per_row }},
+      "slidesToScroll": 3,
+       "centerMode":true,
+       "centerPadding":"0px",
+      "speed": 1000,
+      "responsive": [
+        {
+          "breakpoint": 768,
+          "settings": {
+            "slidesToShow": 1,
+            "slidesToScroll": 1
+          }
+        }
+      ]
+    }
+    {% endcapture %}
+    {% if section.blocks.size > 0 %}
+    <div class="pet-bar pet-bar--{{ section.id }} pet-slider grid"  data-slider-args='{{ args }}'>
+      {% for block in section.blocks %}
+        <div class=" grid__item medium-up--one-third" {{ block.shopify_attributes }}>
+          {% if block.settings.link != blank %}
+            <a href="{{ block.settings.link }}" class="logo-bar__link">
+          {% endif %}
+          {% if block.settings.image != blank %}
+            {%- assign img_url = block.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+            <img class="pet-bar__image lazyload"
+                data-src="{{ img_url }}"
+                data-widths="[180, 360, 540, 720]"
+                data-aspectratio="{{ block.settings.image.aspect_ratio }}"
+                data-sizes="auto"
+                alt="{{ block.settings.image.alt }}">
+              <div class="slide-title">{{block.settings.title}}</div>
+          {% else %}
+            {{ 'logo' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+          {% if block.settings.link != blank %}
+            </a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  {% else %}
+   
+  {% endif %}
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Pet list",
+    "class": "index-section",
+    "max_blocks": 20,
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading"
+      },
+      {
+        "type": "range",
+        "id": "Pet_opacity",
+        "label": "Logo opacity",
+        "default": 76,
+        "min": 0,
+        "max": 100,
+        "step": 2,
+        "unit": "%"
+      },
+      {
+        "type": "range",
+        "id": "per_row",
+        "label": "Pet3 per row",
+        "default": 3,
+        "min": 1,
+        "max": 3,
+        "step": 1
+      },
+      {
+        "type": "checkbox",
+        "id": "divider",
+        "label": "Show section divider",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Slider"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_slider",
+        "label": "Enable slider",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "slider_enable_autoplay",
+        "label": "Enable autoplay",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "slider_enable_arrows",
+        "label": "Enable arrows",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "slider_enable_dots",
+        "label": "Enable dots",
+        "default": true
+      }
+    ],
+    "blocks": [
+      {
+        "type": "Pet_image",
+        "name": "Pet",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Link",
+            "info": "Optional"
+          },
+		  {
+			"type":"text",
+			"id":"title",
+			"label":"title",
+			"default":"pet name"
+		  }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Pet list",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "Pet_image"
+          },
+          {
+            "type": "Pet_image"
+          },
+          {
+            "type": "Pet_image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

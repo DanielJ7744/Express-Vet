@@ -1,0 +1,30 @@
+{{ "rxTransfer.css" | asset_url | stylesheet_tag }}
+
+{% if section.settings.header_image %}
+    <div class="img-wrapper">
+        <img src="{{ section.settings.header_image | img_url: '1920x1080' }}" alt="{{ section.settings.header_image.alt }}">
+    </div>
+{% endif %}
+
+ {% schema %}
+  {
+      "name":"Rx Transfer Form",
+      "class": "transfer_form",
+      "settings":[
+          {
+              "type": "image_picker",
+              "id": "header_image",
+              "label": "Promo Image"
+          }
+      ],
+      "blocks": [],
+      "presets": [
+        {
+            "name": "Rx Transfer Form",
+            "category": "RX transfer"
+        }
+      ]
+  }
+  {% endschema %}
+
+  

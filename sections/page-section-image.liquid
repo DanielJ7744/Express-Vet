@@ -1,0 +1,27 @@
+{{"page-section-image.css" | asset_url | stylesheet_tag }}
+<section class="page-section-image section-{{ section.id }}">
+    {% if section.settings.section_image %}
+        <img loading="lazy" src="{{ section.settings.section_image |img_url: '1920x1080'}}" alt="{{ section.settings.section_image.alt }}">
+    {% endif %}
+    
+</section>
+ 
+ {% schema %}
+  {
+      "name":"Section Image",
+      "class": "page-section-image", 
+      "settings":[
+              {
+                  "type": "image_picker",
+                  "id": "section_image",
+                  "label": "Section Image"
+              }
+      ],
+      "presets": [
+        {
+            "name": "Image with Button",
+            "category": "Image"
+        }
+      ]
+  }
+  {% endschema %}

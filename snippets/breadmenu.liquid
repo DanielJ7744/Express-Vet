@@ -1,0 +1,10 @@
+<nav class="breadcrumb">
+
+  {% for link in bread_menu.links %}
+  {% if forloop.first != true %}
+  <span class="divider">></span>
+  {% endif %}
+  <a href="{{ link.url }}">{{ link.title }}</a>
+  {% endfor %}
+
+</nav>

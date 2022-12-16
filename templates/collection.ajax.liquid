@@ -1,0 +1,47 @@
+{% comment %}
+  Exact same as normal collection template but without unneeded markup
+  that slows down ajax loading
+{% endcomment %}
+{% layout none %}
+<div id="CollectionAjaxResult" class="collection-content">
+  <div id="CollectionAjaxContent">
+    <div class="page-width">
+      <div class="grid">
+        <div class="grid__item one-whole">          
+          {%- include 'breadcrumbs' -%}
+        </div>
+        <div class="grid__item medium-up--one-fifth grid__item--sidebar">
+          {% section 'collection-sidebar' %}
+        </div>
+        <div class="grid__item medium-up--four-fifths grid__item--content">
+          <div class="collection-grid__wrapper">
+            {% section 'collection-header' %}
+            {% section 'collection-template' %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% comment %}
+{% paginate collection.products by 250 %}
+{% for product in collection.products %}
+{%- capture col -%}gid://shopify/Product/{{ product.id }},{{ product.handle }}{%- endcapture -%}
+{{col}},video_url,global,STRING,<br>
+{{col}},item_number,global,STRING,<br>
+{{col}},for_use_with,global,STRING,<br>
+{{col}},generic_name,global,STRING,<br>
+{{col}},administration_form,global,STRING,<br>
+{{col}},common_brand_names,global,STRING,<br>
+{{col}},brand,global,STRING,<br>
+{{col}},lifestage,global,STRING,<br>
+{{col}},breed_size,global,STRING,<br>
+{{col}},product_form,global,STRING,<br>
+{{col}},strength,global,STRING,<br>
+{{col}},health_condition,global,STRING,<br>
+{{col}},drug_type,global,STRING,<br>
+{{col}},ingredients,global,STRING,<br>
+{{col}},instructions,global,STRING,<br>
+{% endfor %}
+{% endpaginate %}
+{% endcomment %}
