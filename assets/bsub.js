@@ -343,6 +343,13 @@ var BsubWidget = (function () {
         },
 
         _updateHistoryState: function (variantId, sellingPlanId) {
+
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const oidParam = urlParams.get('oid')
+            const affidParam = urlParams.get('affid')
+
+
             if (!history.replaceState || !variantId) {
                 return;
             }
@@ -356,6 +363,13 @@ var BsubWidget = (function () {
 
             if (sellingPlanId) {
                 newurl += 'selling_plan=' + sellingPlanId + '&';
+            }
+
+            if (oidParam) {
+                newurl += 'oid=' + oidParam + '&';
+            }
+            if (affidParam) {
+                newurl += 'affid=' + affidParam + '&';
             }
 
             newurl += 'variant=' + variantId;

@@ -3682,3 +3682,14 @@ form.cart .cart__row:last-child {
 	max-width: 600px;
 	margin: 0 auto;
 }
+
+/* Cart page */
+.ajaxcart__note--agree {
+	opacity: 1;
+    color: #000;
+}
+
+/* Faq page */
+.collapsible-content--faq {
+	padding-left: 40px;
+}

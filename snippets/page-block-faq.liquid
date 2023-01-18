@@ -7,9 +7,9 @@
     {% include 'collapsible-icons-alt', no_circle: true %}
     {{ block.settings.title }}
   </button>
-  <div id="FAQ-content-{{ block.id }}" class="collapsible-content collapsible-content--all">
+  <div id="FAQ-content-{{ block.id }}" class="collapsible-content collapsible-content--all collapsible-content--faq">
     <div class="collapsible-content__inner collapsible-content__inner--faq rte">
-      {% if block.settings.page_content %}
+      {% if block.settings.page_content != blank %}
         {{ block.settings.page_content.content }}
       {% else %}
         {{ block.settings.text }}

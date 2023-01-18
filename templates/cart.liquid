@@ -289,13 +289,9 @@ Express vet to contact my vet|Transfer prescription from another pharmacy|I will
                   {% if settings.cart_terms_conditions_enable %}
                     <p class="ajaxcart__note ajaxcart__note--terms">
                       <input type="checkbox" id="CartPageAgree" />
-                      <label for="CartPageAgree">
-                        {% if settings.cart_terms_conditions_link != blank %}
-                          {{ 'cart.general.terms_html' | t: url: settings.cart_terms_conditions_link }}
-                        {% else %}
-                          {{ 'cart.general.terms' | t }}
-                        {% endif %}
-                      </label>
+                      <span class="ajaxcart__note--agree" for="CartPageAgree">
+                        I understand prescription medications CANNOT be returned or refunded once they have been shipped from the pharmacy
+                      </span>
                     </p>
                   {% endif %}
 
