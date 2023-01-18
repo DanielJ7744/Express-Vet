@@ -3688,3 +3688,8 @@ form.cart .cart__row:last-child {
 	opacity: 1;
     color: #000;
 }
+
+/* Faq page */
+.collapsible-content--faq {
+	padding-left: 40px;
+}
